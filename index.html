@@ -7,7 +7,47 @@
     <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
 <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
-<body>
-    <h1 class="btn">Hello Login</h1>
+<body class="min-h-screen flex items-center justify-center bg-gray-100">
+    <section class="bg-white shadow-md p-10 rounded-2xl">
+        <div class="flex flex-col items-center justify-center text-center">
+            <img class="w-12" src="./assets/github-logo.png" alt="">
+            <div class="mt-2">
+                <h3 class="text-2xl font-semibold">GitHub Issues Tracker</h3>
+                <p class="text-xs text-gray-500">Sign in to manage your issues</p>
+            </div>
+        </div>
+
+        <form class="mt-4">
+            <div>
+                <label class="font-semibold" for="username">Username</label><br>
+                <input class="w-full rounded-md p-2 border border-gray-200 mt-1 text-xs" type="text" id="username" name="username"
+                    placeholder="Enter your username" value="admin">
+                <p class="text-xs mt-1 text-[#4a00ff]">Default: admin</p>
+            </div>
+            <div class="mt-4">
+                <label class="font-semibold" for="username">Password</label><br>
+                <input class="w-full rounded-md p-2 border border-gray-200 mt-1 text-xs" type="text" id="password" name="password"
+                    placeholder="Enter your password" value="admin123">
+                <p class="text-xs mt-1 text-[#4a00ff]">Default: admin123</p>
+            </div>
+            <button id="login-btn" class="btn btn-primary w-full mt-5">Sign In</button>
+        </form>
+        <div>
+            <div class="flex items-center my-6">
+                <div class="flex-grow border-t border-gray-300"></div>
+                <span class="mx-4 text-gray-500 text-sm">OR</span>
+                <div class="flex-grow border-t border-gray-300"></div>
+            </div>
+            <div class="text-center">
+                <p class="text-xs text-gray-700 font-medium">Demo Credentials:</p>
+                <div class="mt-2 bg-slate-100 p-4 text-gray-600 rounded-md">
+                    <p><span class="font-medium">Username:</span> admin</p>
+                    <p><span class="font-medium">Password:</span> admin123</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="index.js"></script>
 </body>
 </html>
