@@ -46,6 +46,7 @@ const allIssues = document.getElementById("all-issues");
 async function loadIssues() {
   loadingSpinner.classList.remove("hidden");
   loadingSpinner.classList.add("flex")
+  await new Promise(resolve => setTimeout(resolve, 300));
   const res = await fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues");
   const data = await res.json();
   allIssuesData = data.data;
@@ -179,7 +180,7 @@ openBtn.addEventListener("click", async () => {
   loadingSpinner.classList.remove("hidden");
   loadingSpinner.classList.add("flex");
 
-  await new Promise(resolve => setTimeout(resolve, 200));
+  await new Promise(resolve => setTimeout(resolve, 300));
 
   const openIssues = allIssuesData.filter(issue => issue.status === "open");
   displayIssues(openIssues);
@@ -191,7 +192,7 @@ openBtn.addEventListener("click", async () => {
 closeBtn.addEventListener("click", async () => {
   loadingSpinner.classList.remove("hidden");
   loadingSpinner.classList.add("flex");
-  await new Promise(resolve => setTimeout(resolve, 200));
+  await new Promise(resolve => setTimeout(resolve, 300));
 
   const closedIssues = allIssuesData.filter(issue => issue.status === "closed");
   displayIssues(closedIssues);
@@ -203,8 +204,8 @@ closeBtn.addEventListener("click", async () => {
 allBtn.addEventListener("click", async () => {
   loadingSpinner.classList.remove("hidden");
   loadingSpinner.classList.add("flex");
-  await new Promise(resolve => setTimeout(resolve, 200));
-  
+  await new Promise(resolve => setTimeout(resolve, 300));
+
   displayIssues(allIssuesData);
 
   loadingSpinner.classList.add("hidden");
