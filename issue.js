@@ -159,17 +159,18 @@ document.getElementById("btn-search").addEventListener("click", ()=>{
     console.log(allWords);
     const filterWords = allWords.filter(word =>word.title.toLowerCase().includes(searchValue));
     displayIssues(filterWords);
+    selectStatus(allBtn);
   })
 });
 
-function selectStatus(id){
+function selectStatus(activeBtn){
   [allBtn,openBtn,closeBtn].forEach( btn =>{
     btn.classList.remove('bg-[#422ad5]', 'text-white');
     btn.classList.add('bg-gray-100', 'text-black')
-    btn.classList.remove('bg-gray-100', 'text-black')
+    
   });
-  document.getElementById(id).classList.remove('bg-black', 'text-red');
-    document.getElementById(id).classList.add('bg-[#422ad5]', 'text-white');
+    activeBtn.classList.remove('bg-gray-100', 'text-black')
+    activeBtn.classList.add('bg-[#422ad5]', 'text-white');  
 }
 
 openBtn.addEventListener("click", () => {
