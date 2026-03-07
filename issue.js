@@ -13,6 +13,8 @@ const openBtn = document.getElementById("open-btn");
 const closeBtn = document.getElementById("close-btn");
 let allIssuesData = [];
 
+const loadingSpinner = document.getElementById("loading-spinner");
+
 
 const createElements = (arr) => {
   const issueElements = arr.map((el, index) => {
@@ -41,18 +43,17 @@ const createElements = (arr) => {
 
 const allIssues = document.getElementById("all-issues");
 
-// fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues")
-// .then(res => res.json())
-// .then(data => displayIssues(data.data))
 async function loadIssues() {
+  loadingSpinner.classList.remove("hidden");
+  loadingSpinner.classList.add("flex")
   const res = await fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues");
   const data = await res.json();
   allIssuesData = data.data;
+  loadingSpinner.classList.add("hidden")
   displayIssues(allIssuesData);
 }
 loadIssues();
 function displayIssues(issues){
-  
     console.log(issues)
     allIssues.innerHTML = "";
     document.getElementById("tracker-length").innerText = issues.length;
@@ -96,7 +97,7 @@ function displayIssues(issues){
                    </div>
                 </div>
                 <p class="text-sm text-gray-500 mt-3 px-4">${issue.author}</p>
-                <p class="text-sm text-gray-500 mt-1 px-4">${issue.createdAt}</p>
+                <p class="text-sm text-gray-500 mt-1 px-4">${new Date(issue.createdAt).toLocaleDateString("en-us")}</p>
             </div>
         `;
        
@@ -139,7 +140,7 @@ async function openIssueModal(issueId){
   issueStatus.textContent = issueDetails.status.toUpperCase();
   issueStatus.className = `py-1 px-3 rounded-sm ${bgColor} ${textColor}`;
   authorName.textContent = issueDetails.author;
-  createdDate.textContent = issueDetails.createdAt;
+  createdDate.textContent = new Date(issueDetails.createdAt).toLocaleDateString("en-US");
   issueDescription.textContent = issueDetails.description;
   writerName.textContent = issueDetails.assignee;
   priorityValue.textContent = issueDetails.priority.toUpperCase();
@@ -173,19 +174,41 @@ function selectStatus(activeBtn){
     activeBtn.classList.add('bg-[#422ad5]', 'text-white');  
 }
 
-openBtn.addEventListener("click", () => {
+
+openBtn.addEventListener("click", async () => {
+  loadingSpinner.classList.remove("hidden");
+  loadingSpinner.classList.add("flex");
+
+  await new Promise(resolve => setTimeout(resolve, 200));
+
   const openIssues = allIssuesData.filter(issue => issue.status === "open");
   displayIssues(openIssues);
 
+  loadingSpinner.classList.add("hidden");
+  loadingSpinner.classList.remove("flex");
 });
 
-closeBtn.addEventListener("click", () => {
+closeBtn.addEventListener("click", async () => {
+  loadingSpinner.classList.remove("hidden");
+  loadingSpinner.classList.add("flex");
+  await new Promise(resolve => setTimeout(resolve, 200));
+
   const closedIssues = allIssuesData.filter(issue => issue.status === "closed");
   displayIssues(closedIssues);
+
+  loadingSpinner.classList.add("hidden");
+  loadingSpinner.classList.remove("flex");
 });
 
-allBtn.addEventListener("click", () => {
+allBtn.addEventListener("click", async () => {
+  loadingSpinner.classList.remove("hidden");
+  loadingSpinner.classList.add("flex");
+  await new Promise(resolve => setTimeout(resolve, 200));
+  
   displayIssues(allIssuesData);
+
+  loadingSpinner.classList.add("hidden");
+  loadingSpinner.classList.remove("flex");
 });
 
 

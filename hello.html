@@ -71,8 +71,8 @@
                         <div class="flex gap-6 text-xs items-center mt-4">
                             <p id="issue-status" class=""></p>
                             <ul class="flex gap-6">
-                                <li class="list-disc">Opened by <span id="author-name"></span></li>
-                                <li class="list-disc" id="created-date"></li>
+                                <li class="list-disc text-gray-500">Opened by <span id="author-name"></span></li>
+                                <li class="list-disc text-gray-500" id="created-date"></li>
                             </ul>
                         </div>
                         <div id="modal-issue-labels" class="mt-4 flex gap-2"></div>
@@ -98,7 +98,9 @@
             </dialog>
         </section>
 
-
+            <section id="loading-spinner" class="hidden items-center justify-center">
+                <span class="loading loading-bars loading-xl"></span>
+            </section>
         <section id="all-issues"  class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
         </section>
        
