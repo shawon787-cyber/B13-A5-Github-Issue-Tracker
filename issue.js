@@ -70,9 +70,9 @@ function displayIssues(issues){
             bgColor = "bg-slate-200";
         };
         const card = document.createElement("div");
-        card.className = `py-4 ${border} rounded-lg shadow-sm`;
+        card.className = `py-4 ${border} rounded-lg shadow-sm `;
         card.innerHTML= `
-        <div class="">
+        <div onclick="openIssueModal(${issue.id})" class="hover:cursor-pointer">
                 <div class="flex justify-between items-center px-4">
                     <img src="./assets/Open-Status.png" alt="">
                     <p onclick="openIssueModal(${issue.id})" class="${bgColor} py-1 px-3 font-medium text-xs rounded-md uppercase ${textColor} cursor-pointer">${issue.priority}</p>
@@ -80,7 +80,7 @@ function displayIssues(issues){
                 <h2 class="font-semibold text-xl mt-4 px-4">${issue.title}</h2>
                 <p class="text-gray-500 text-sm mt-1 px-4">${issue.description}</p>
                 <div class="flex items-center gap-3 mt-4 pb-4 border-b border-b-gray-300">
-                   <div onclick="showModal()" class="px-4 flex gap-2 ">
+                   <div  class="px-4 flex gap-2 ">
                    ${createElements(issue.labels)}
                    </div>
                 </div>
@@ -135,7 +135,21 @@ async function openIssueModal(issueId){
   priorityValue.className = `text-sm text-gray-800 font-medium py-1 px-2 w-18 mt-1 text-center rounded-sm ${priorityBg} ${priorityText}`;
   modalIssueLabels.innerHTML = createElements(issueDetails.labels);
   
-}
+};
+
+document.getElementById("btn-search").addEventListener("click", ()=>{
+  const input = document.getElementById("input-search");
+  const searchValue = input.value.trim().toLowerCase();
+  console.log(searchValue);
+  fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${searchValue}`)
+  .then(res => res.json())
+  .then(data => {
+    const allWords = data.data;
+    console.log(allWords);
+    const filterWords = allWords.filter(word =>word.title.toLowerCase().includes(searchValue));
+    displayIssues(filterWords);
+  })
+})
 
 
 
