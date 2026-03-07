@@ -8,6 +8,11 @@ const writerName = document.getElementById("name");
 const priorityValue = document.getElementById("priority-value");
 const modalIssueLabels = document.getElementById("modal-issue-labels");
 
+const allBtn = document.getElementById("all-btn");
+const openBtn = document.getElementById("open-btn");
+const closeBtn = document.getElementById("close-btn");
+let allIssuesData = [];
+
 
 const createElements = (arr) => {
   const issueElements = arr.map((el, index) => {
@@ -36,10 +41,16 @@ const createElements = (arr) => {
 
 const allIssues = document.getElementById("all-issues");
 
-fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues")
-.then(res => res.json())
-.then(data => displayIssues(data.data))
-
+// fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues")
+// .then(res => res.json())
+// .then(data => displayIssues(data.data))
+async function loadIssues() {
+  const res = await fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues");
+  const data = await res.json();
+  allIssuesData = data.data;
+  displayIssues(allIssuesData);
+}
+loadIssues();
 function displayIssues(issues){
   
     console.log(issues)
@@ -149,7 +160,33 @@ document.getElementById("btn-search").addEventListener("click", ()=>{
     const filterWords = allWords.filter(word =>word.title.toLowerCase().includes(searchValue));
     displayIssues(filterWords);
   })
-})
+});
+
+function selectStatus(id){
+  [allBtn,openBtn,closeBtn].forEach( btn =>{
+    btn.classList.remove('bg-[#422ad5]', 'text-white');
+    btn.classList.add('bg-gray-100', 'text-black')
+    btn.classList.remove('bg-gray-100', 'text-black')
+  });
+  document.getElementById(id).classList.remove('bg-black', 'text-red');
+    document.getElementById(id).classList.add('bg-[#422ad5]', 'text-white');
+}
+
+openBtn.addEventListener("click", () => {
+  const openIssues = allIssuesData.filter(issue => issue.status === "open");
+  displayIssues(openIssues);
+
+});
+
+closeBtn.addEventListener("click", () => {
+  const closedIssues = allIssuesData.filter(issue => issue.status === "closed");
+  displayIssues(closedIssues);
+});
+
+allBtn.addEventListener("click", () => {
+  displayIssues(allIssuesData);
+});
+
 
 
 
