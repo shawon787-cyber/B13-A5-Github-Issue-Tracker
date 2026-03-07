@@ -54,11 +54,18 @@ async function loadIssues() {
   displayIssues(allIssuesData);
 }
 loadIssues();
+
 function displayIssues(issues){
     console.log(issues)
     allIssues.innerHTML = "";
     document.getElementById("tracker-length").innerText = issues.length;
     issues.forEach(issue =>{
+       let imageStatus = "";
+    if(issue.status === "open"){
+        imageStatus = "./assets/Open-Status.png";
+    }; if(issue.status === "closed"){
+        imageStatus = "./assets/Closed-Status.png";
+    };
         
 
         let border = "";
@@ -87,7 +94,7 @@ function displayIssues(issues){
         card.innerHTML= `
         <div onclick="openIssueModal(${issue.id})" class="hover:cursor-pointer">
                 <div class="flex justify-between items-center px-4">
-                    <img src="./assets/Open-Status.png" alt="">
+                    <img src="${imageStatus}" alt="Issue Status">
                     <p onclick="openIssueModal(${issue.id})" class="${bgColor} py-1 px-3 font-medium text-xs rounded-md uppercase ${textColor} cursor-pointer">${issue.priority}</p>
                 </div>
                 <h2 class="font-semibold text-xl mt-4 px-4">${issue.title}</h2>
@@ -162,6 +169,7 @@ document.getElementById("btn-search").addEventListener("click", ()=>{
     const filterWords = allWords.filter(word =>word.title.toLowerCase().includes(searchValue));
     displayIssues(filterWords);
     selectStatus(allBtn);
+    input.value= "";
   })
 });
 
