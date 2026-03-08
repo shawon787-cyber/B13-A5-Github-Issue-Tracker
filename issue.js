@@ -15,27 +15,30 @@ let allIssuesData = [];
 
 const loadingSpinner = document.getElementById("loading-spinner");
 
-
 const createElements = (arr) => {
-  const issueElements = arr.map((el, index) => {
+  const issueElements = arr.map((el) => {
 
-    if(index === 0){
+    if(el === 'bug'){
       return `
-      <span class="flex items-center gap-1 bg-red-200 text-red-600 px-2 py-1 rounded text-xs">
-        <img src="./assets/Vector (2).png" alt="">
+      <span class="flex items-center gap-1 bg-red-200 text-red-600 px-2 py-1 rounded text-[10px]">
+        <img class="w-3 h-3" src="./assets/Vector (2).png" alt="">
         ${el.toUpperCase()}
       </span>`;
     }
 
-    if(index === 1){
+    if(el === 'help wanted'){
       return `
-      <span class="flex items-center gap-1 bg-yellow-100 text-yellow-600 px-2 py-1 rounded text-xs">
-        <img src="./assets/Vector (3).png" alt="">
+      <span class="flex items-center gap-1 bg-yellow-100 text-yellow-600 px-2 py-1 rounded text-[10px]">
+        <img class="w-3 h-3" src="./assets/Vector (3).png" alt="">
         ${el.toUpperCase()}
       </span>`;
     }
 
-    return "";
+    return `
+    <span class="flex items-center gap-1 bg-green-200 text-green-600 px-2 py-1 rounded text-[10px]">
+      <img class="w-3 h-3" src="./assets/Vector (4).png" alt="">
+      ${el.toUpperCase()}
+    </span>`;
   });
 
   return issueElements.join(" ");
